@@ -15,8 +15,8 @@ const numCPUs = require('os').cpus().length
 // const http = require('http')
 const compression = require('compression')
 const winston = require('winston')
-const dotenv = require('dotenv')
-dotenv.config();
+// const dotenv = require('dotenv')
+// dotenv.config();
 require('./database')
 
 

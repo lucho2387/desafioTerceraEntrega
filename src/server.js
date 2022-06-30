@@ -96,7 +96,10 @@ if (modoCluster && cluster.isPrimary) {
         }),
         secret: 'secret',
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        cookie: {
+            maxAge: 6000000
+        }
     }))
     app.use(passport.initialize())
     app.use(passport.session())

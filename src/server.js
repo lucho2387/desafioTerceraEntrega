@@ -15,6 +15,8 @@ const numCPUs = require('os').cpus().length
 // const http = require('http')
 const compression = require('compression')
 const winston = require('winston')
+require('dotenv').config();
+require('./database')
 
 const logger = winston.createLogger({
     level: 'warn',
@@ -42,6 +44,7 @@ const app = express()
 
 const PORT = parseInt(process.argv[2])
 const modoCluster = process.argv[3] == 'CLUSTER'
+
 
 
 app.set('port', PORT || 8080)
@@ -168,6 +171,9 @@ if (modoCluster && cluster.isPrimary) {
     app.use(express.static(path.join(__dirname, "public")));
 
  }
+ app.listen(app.get('port'), () => {
+    console.log('Servidor corriendo en el puerto:', app.get('port'))
+})
 
  module.exports = { app }
  

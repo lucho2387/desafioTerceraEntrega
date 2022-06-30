@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js FORK"
+    "start": "node src/server.js FORK"
   },
   "keywords": [],
   "author": "",

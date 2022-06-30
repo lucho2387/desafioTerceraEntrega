@@ -45,7 +45,7 @@ const { NAME, NAME_DATABASE, PASSWORD } = process.env
 const app = express()
 // require('./config/passport')
 
-const PORT = parseInt(process.argv[2])
+// const PORT = parseInt(process.argv[2])
 const modoCluster = process.argv[3] == 'CLUSTER'
 
 

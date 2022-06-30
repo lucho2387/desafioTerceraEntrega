@@ -1,0 +1,6 @@
+node --prof src/index.js
+curl -X GET "http://localhost:8080/info"
+curl -X GET "http://localhost:8080/usuario/login?email=sebadorado@hotmail.com&password=1234"
+artillery quick  --count 50 -n 20 http://localhost:8080/productos > result_bloq.txt  
+Decodifica
+node --prof-process bloq-v8.log > result_prof-bloq.txt

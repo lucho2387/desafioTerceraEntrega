@@ -15,8 +15,10 @@ const numCPUs = require('os').cpus().length
 // const http = require('http')
 const compression = require('compression')
 const winston = require('winston')
-// require('dotenv').config();
+const dotenv = require('dotenv')
 require('./database')
+
+dotenv.config();
 
 const logger = winston.createLogger({
     level: 'warn',
@@ -88,7 +90,7 @@ if (modoCluster && cluster.isPrimary) {
     app.use(cookieParser())
     app.use(session({
         store: MongoStore.create({
-            mongoUrl: `mongodb+srv://luis:coderhouse@cluster0.9xnml.mongodb.net/ecommerce?retryWrites=true&w=majority`,
+            mongoUrl: `mongodb+srv://${NAME}:${PASSWORD}@cluster0.9xnml.mongodb.net/${NAME_DATABASE}?retryWrites=true&w=majority`,
             mongoOptions: advancedOptions,
             ttl: 60
         }),

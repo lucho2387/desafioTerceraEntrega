@@ -15,7 +15,7 @@ const numCPUs = require('os').cpus().length
 // const http = require('http')
 const compression = require('compression')
 const winston = require('winston')
-require('dotenv').config();
+// require('dotenv').config();
 require('./database')
 
 const logger = winston.createLogger({

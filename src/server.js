@@ -92,15 +92,11 @@ if (modoCluster && cluster.isPrimary) {
     app.use(session({
         store: MongoStore.create({
             mongoUrl: `mongodb+srv://${NAME}:${PASSWORD}@cluster0.9xnml.mongodb.net/${NAME_DATABASE}?retryWrites=true&w=majority`,
-            mongoOptions: advancedOptions,
-            // ttl: 60
+            mongoOptions: advancedOptions
         }),
         secret: 'secret',
         resave: true,
-        saveUninitialized: true,
-        // cookie: {
-        //     maxAge: 60000
-        // }
+        saveUninitialized: true
     }))
     app.use(passport.initialize())
     app.use(passport.session())

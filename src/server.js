@@ -50,8 +50,22 @@ const modoCluster = process.argv[3] == 'CLUSTER'
 
 
 
-app.set('port', PORT || 8080)
+app.set('port', process.env.PORT || 8080)
 
+if (modoCluster && cluster.isPrimary) {
+ 
+    console.log(`Número de procesadores: ${numCPUs}`)
+    console.log(`PID MASTER ${process.pid}`)
+ 
+    for (let i = 0; i < numCPUs; i++) {
+        cluster.fork()
+    }
+ 
+    cluster.on('exit', worker => {
+        console.log('Worker', worker.process.pid, 'died', new Date().toLocaleString())
+        cluster.fork()
+    })
+ } else {
     // Inicializacion
     require('./config/passport')
 
@@ -158,7 +172,7 @@ app.set('port', PORT || 8080)
     // Archivos Estaticos
     app.use(express.static(path.join(__dirname, "public")));
 
- 
+ }
  app.listen(app.get('port'), () => {
     console.log('Servidor corriendo en el puerto:', app.get('port'))
 })

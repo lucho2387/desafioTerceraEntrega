@@ -88,7 +88,7 @@ if (modoCluster && cluster.isPrimary) {
     app.use(cookieParser())
     app.use(session({
         store: MongoStore.create({
-            mongoUrl: `mongodb+srv://${NAME}:${PASSWORD}@cluster0.9xnml.mongodb.net/${NAME_DATABASE}?retryWrites=true&w=majority`,
+            mongoUrl: `mongodb+srv://luis:coderhouse@cluster0.9xnml.mongodb.net/ecommerce?retryWrites=true&w=majority`,
             mongoOptions: advancedOptions,
             ttl: 60
         }),

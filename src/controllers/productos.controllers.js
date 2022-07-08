@@ -51,6 +51,12 @@ productosCtrl.updateProduct = async (req, res) => {
     res.redirect('/productos')
 }
 
+productosCtrl.renderAddForm = async (req, res) => {
+    const producto = await Producto.findById(req.params.id).lean()
+    res.render('products/add-product', { producto })
+    logger.info({ruta: req.url,metodo: req.method})
+}
+
 productosCtrl.deleteProduct = async (req, res) => {
     await Producto.findByIdAndDelete(req.params.id)
     req.flash('mensaje', 'El producto fue eliminado correctamente')

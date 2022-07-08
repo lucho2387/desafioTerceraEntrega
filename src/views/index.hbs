@@ -1,7 +1,78 @@
-<div class="container justify-content-center bg-light p-2">
+<div c="container justify-content-center bg-light p-2">
     <h1 class="display-4 d-flex justify-content-center m-4"><strong>Bien<span>venido</span></strong></h1>
     <p class="texto d-flex justify-content-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam nemo ad esse hic suscipit voluptatem.</p>
     <hr class="my-4">
     <p class="d-flex justify-content-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, quis reiciendis! Fugit pariatur illum dicta reiciendis optio quos facere minima.</p>
     <a href="/" class="btn btn-outline-dark m-2 d-flex justify-content-center m-5">Ir</a>
 </div>
+{{!-- 
+  <div className="container">
+        <div className="section">
+          <div className="row">
+            <div className="col-lg-12 col-md-12 article">
+              <div className="shopcontainer row">
+                {{#each productos}}
+                  <div
+                    className="shop col-lg-4 col-md-6 col-sm-6"
+                  >
+                    <div className="border-product bg-danger">
+                      <a href={`/producto/{{_id}}`}>
+                        <div className="shopBack">
+                          <img src={{imagen}} alt={{nombre}} />
+                        </div>
+                      </a>
+
+                      <div className="shoptext">
+                        <p>
+                          <a href={`/producto/{{_id}}`}>
+                            {{nombre}}
+                          </a>
+                        </p>
+                        <h3>{{precio}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                 {{/each}}
+              </div>
+            </div>
+          </div>
+        </div>
+  </div> --}}
+  {{!-- <div class="d-flex justify-content-center">
+  {{#each productos}} 
+    <div class="card text-center" style="width: 20rem; height: 27rem; margin:20px;">
+      <div class="container">
+        <img src={{imagen}} class="img-responsive w-50 p-3 m-3" alt="...">
+      </div>
+      <div class="card-body text-center">
+        <h5 class="card-title p-3">{{nombre}}</h5>
+        <p class="card-text">{{precio}}</p>
+        <a href="#" class="btn btn-primary">Ver Detalles</a>
+      </div>
+    </div>
+    {{/each}}
+  </div> --}}
+
+  {{!-- este --}}
+ {{!-- {{#each productos}} 
+  <div class="container">
+  <div class="row justify-content-center">
+   
+      <div class="col-3">
+        <div class="card text-center" style="width: 20rem; height: 27rem; margin:20px;">
+          <div class="container">
+            <img src={{imagen}} class="img-responsive w-50 p-3 m-3" alt="...">
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title p-3">{{nombre}}</h5>
+            <p class="card-text">{{precio}}</p>
+            <a href="/{{_id}}" class="btn btn-danger">Ver Detalles</a>
+          </div>
+        </div>
+      </div>
+    
+  </div>
+ 
+</div>
+{{/each}} --}}
+  

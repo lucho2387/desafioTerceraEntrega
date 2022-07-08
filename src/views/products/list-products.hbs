@@ -1,5 +1,5 @@
 
-    <div class="containerNuevoProducto d-flex justify-content-end align-items-center">
+    {{!-- <div class="containerNuevoProducto d-flex justify-content-end align-items-center">
       <a href="/producto">
         <button class="botonNuevo btn btn-outline-dark">
             Nuevo Producto
@@ -31,4 +31,25 @@
                 </div>
             </div>
         </div>
-    {{/each}}
+    {{/each}} --}}
+
+ {{#each productos}} 
+  <div class="container">
+    <div class="row justify-content-center">
+    
+        <div class="col-3">
+            <div class="card text-center" style="width: 20rem; height: 27rem; margin:20px;">
+            <div class="container">
+                <img src={{imagen}} class="img-responsive w-50 p-3 m-3" alt="...">
+            </div>
+            <div class="card-body text-center">
+                <h5 class="card-title p-3">{{nombre}}</h5>
+                <p class="card-text">{{precio}}</p>
+                <a href="/{{_id}}" class="btn btn-danger">Ver Detalles</a>
+            </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{{/each}}

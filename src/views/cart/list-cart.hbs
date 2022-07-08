@@ -1,0 +1,36 @@
+{{#if carrito}}
+    {{#each carrito}}
+        {{!-- <span>Id del Carrito</span>
+        <p>{{_id}}</p> --}}
+        
+            {{#each productos}}
+            <div class="container d-flex justify-content-center mt-5 border p-5">
+                {{!-- <span>Id del Producto</span>
+                <p>{{_id}}</p> --}}
+                <div class="d-flex justify-content-evenly">
+                    <img src="{{imagen}}" class="w-25" alt="">
+                </div>
+                <div class="container pt-3">
+                    <p>{{nombre}}</p>
+                </div>
+                <span class="pt-3">{{precio}}</span>
+            </div>
+            {{/each}}
+            <div class="d-flex justify-content-end mt-3">
+                <h3><span>Total: </span>{{total}}</h3>
+            </div>
+    {{/each}}
+    <div class="d-grid gap-2 mt-3">
+        <button type="button" class="btn btn-danger" onclick="location.href='/compra'">Finalizar Compra</button>
+    </div>
+{{else}}
+    <h2 class="d-flex justify-content-center mt-5 bg-danger">No hay productos</h2>
+{{/if}} 
+
+
+
+
+ 
+ {{!-- {{#with carrito}}
+    <h1>{{_id}}</h1>
+{{/with}} --}}

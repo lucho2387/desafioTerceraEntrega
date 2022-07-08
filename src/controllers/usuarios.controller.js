@@ -1,5 +1,6 @@
 const usuariosCtrl = {}
 const passport = require('passport')
+const { createTransport } = require('nodemailer')
 
 const Usuario = require('../models/Usuario')
 
@@ -9,7 +10,7 @@ usuariosCtrl.renderRegistroForm = (req, res) => {
 
 usuariosCtrl.register = async (req, res) => {
     const errors = []
-    const { nombre, email, password, confirmPassword } = req.body
+    const { nombre, email, direccion, edad, telefono, avatar, password, confirmPassword } = req.body
 
     if(password !== confirmPassword){
         errors.push({text: 'Las contraseñas no coiciden'})
@@ -24,6 +25,10 @@ usuariosCtrl.register = async (req, res) => {
             errors,
             nombre,
             email,
+            direccion,
+            edad,
+            telefono,
+            avatar,
             password,
             confirmPassword
         })
@@ -33,11 +38,38 @@ usuariosCtrl.register = async (req, res) => {
             req.flash('error', 'El correo ya existe')
             res.redirect('/usuario/registro')
         }else {
-            const nuevoUsuario = new Usuario({nombre, email, password})
+            const nuevoUsuario = new Usuario({nombre, email, direccion, edad, telefono, avatar, password})
             nuevoUsuario.password = await nuevoUsuario.encriptarContraseña(password)
             await nuevoUsuario.save()
             req.flash('mensaje', 'El usuario fue registrado correctamente')
-            res.redirect('/usuario/login')
+
+            const asunto = "Nuevo Registro"
+            const datosUsuario = JSON.stringify(nuevoUsuario)
+            const mensaje = datosUsuario
+
+            const transporter = createTransport({
+                host: 'smtp.ethereal.email',
+                port: 587,
+                auth: {
+                    user: process.env.EMAIL,
+                    pass: process.env.PASSEMAIL
+                }
+            });
+
+            const mailOptions = {
+                from: 'Servidor Node.js',
+                to: process.env.EMAIL,
+                subject: asunto,
+                html: mensaje,
+            }
+
+            try {
+                transporter.sendMail(mailOptions)
+                res.redirect('/usuario/login')
+            } catch (error) {
+                console.log(error)
+            }
+            // res.redirect('/usuario/login')
         }   
     }
 }

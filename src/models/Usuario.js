@@ -14,6 +14,22 @@ const UsuarioSchema = new Schema (
         unique: true,
         trim: true
     },
+    direccion : {
+        type:String,
+        required: true
+    },
+    edad : {
+        type:Number,
+        required: true,
+    },
+    telefono : {
+        type:Number,
+        required: true,
+    },
+    avatar : {
+        type:String,
+        required: true,
+    },
     password : {
         type:String,
         required: true

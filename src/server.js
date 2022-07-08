@@ -15,9 +15,10 @@ const numCPUs = require('os').cpus().length
 // const http = require('http')
 const compression = require('compression')
 const winston = require('winston')
-// const dotenv = require('dotenv')
-// dotenv.config();
+const dotenv = require('dotenv')
+dotenv.config();
 require('./database')
+const { createTransport } = require('nodemailer')
 
 
 
@@ -36,8 +37,10 @@ const advancedOptions = {
     useunifiedTopology: true
 }
 
+
 const Producto = require('./models/Producto')
 const Usuario = require('./models/Usuario')
+const Carrito = require('./models/Carrito')
 const { isAuthenticated } = require('./middlewares/auth')
 const { NAME, NAME_DATABASE, PASSWORD } = process.env
 
@@ -107,6 +110,13 @@ app.get('/productos',isAuthenticated, async (req, res) => {
     
 })
 
+app.get('/carrito',isAuthenticated, async (req, res) => {
+    const carrito = await Carrito.find().lean()
+    const productos = await Producto.find().lean()
+    // const nombre  = JSON.stringify(carrito)
+    res.render('cart/list-cart', { carrito, productos })
+})
+
 app.get('/usuario/salir', async (req, res) => {
     const user = req.user
     const usuario = await Usuario.findById(user).lean()
@@ -131,18 +141,46 @@ app.get('/info', async (req, res) => {
     res.render('process/info',{directorio,ruta,procesoId,nombrePlataforma,versionNode,argumentoEntrada,memoriaReservada,totalCPUs})
 })
 
-// app.get("*", (req, res) => {
-//     // console.log("REQ", req.url, req.method)
-//     res.status(401).json({
-//         descripcion:{
-//                         ruta: `localhost:8080${req.originalUrl}`,
-//                         metodo: req.method,
-//                         mensaje: "Ruta No Encontrada",
-//                         error: "401"
-//                     }
-//     });
+app.get("/compra", async (req, res) => {
     
-// })
+    // console.log(req.user)
+    const nombre = req.user.nombre
+    const email = req.user.email
+    const carrito = await Carrito.find().lean()
+    const asunto = "Nuevo Pedido"
+    const datosCarrito = JSON.stringify(carrito)
+    const mensaje =  `<div>
+                        <h3>Productos del Carrito${datosCarrito}</h3> 
+                    </div>
+                    <div>
+                        <h3>Nombre del Usuario: ${nombre}</h3>  
+                    </div>
+                    <div>
+                        <h3>Correo del Usuario: ${email}</h3>
+                    </div>
+                    `
+
+    const transporter = createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSEMAIL
+        }
+    });
+
+    const mailOptions = {
+        from: 'Servidor Node.js',
+        to: process.env.EMAIL,
+        subject: asunto,
+        html: mensaje,
+    }
+
+    await transporter.sendMail(mailOptions)
+    res.redirect('/productos')
+    
+    
+})
 
 
 // Rutas
@@ -150,15 +188,17 @@ app.use(require('./routes/index.routes'))
 app.use(require('./routes/productos.routes'))
 app.use(require('./routes/usuarios.routes'))
 app.use(require('./routes/random.routes'))
+app.use(require('./routes/carrito.routes'))
 
 // Archivos Estaticos
 app.use(express.static(path.join(__dirname, "public")));
 
- 
- app.listen(app.get('port'), () => {
+
+app.listen(app.get('port'), () => {
     console.log('Servidor corriendo en el puerto:', app.get('port'))
 })
 
-//  module.exports = { app }
+
+
  
 

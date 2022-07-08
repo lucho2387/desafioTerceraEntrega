@@ -6,7 +6,8 @@ const {
         listProducts, 
         renderEditForm, 
         updateProduct, 
-        deleteProduct 
+        deleteProduct,
+        renderAddForm 
 } = require('../controllers/productos.controllers')
 
 const { isAuthenticated } = require('../middlewares/auth')
@@ -17,9 +18,12 @@ router.get('/producto',isAuthenticated, renderPorductoForm)
 router.post('/producto',isAuthenticated, createNewProduct)
 
 // Actualizar Producto
-router.get('/:id',isAuthenticated, renderEditForm)
+// router.get('/:id',isAuthenticated, renderEditForm)
 
-router.put('/:id',isAuthenticated, updateProduct)
+// router.put('/:id',isAuthenticated, updateProduct)
+
+// Agregar producto al Carrito
+router.get('/:id',isAuthenticated, renderAddForm)
 
 // Eliminar Productos
 router.delete('/:id',isAuthenticated, deleteProduct)

@@ -182,6 +182,19 @@ app.get("/compra", async (req, res) => {
     
 })
 
+app.get("/perfil", async (req, res) => {
+    const user = {
+        nombre: req.user.nombre,
+        email: req.user.email,
+        direccion: req.user.direccion,
+        edad: req.user.edad,
+        telefono: req.user.telefono,
+        avatar: req.user.avatar,
+    }
+    // console.log(user);
+    res.render('users/perfil', user)
+})
+
 
 // Rutas
 app.use(require('./routes/index.routes'))

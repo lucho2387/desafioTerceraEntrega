@@ -19,7 +19,7 @@ const dotenv = require('dotenv')
 dotenv.config();
 require('./database')
 const { createTransport } = require('nodemailer')
-
+const twilio = require('twilio')
 
 
 const logger = winston.createLogger({
@@ -143,6 +143,7 @@ app.get('/info', async (req, res) => {
 
 app.get("/compra", async (req, res) => {
     
+    // Mensaje al Administrador
     // console.log(req.user)
     const nombre = req.user.nombre
     const email = req.user.email
@@ -176,9 +177,28 @@ app.get("/compra", async (req, res) => {
         html: mensaje,
     }
 
-    await transporter.sendMail(mailOptions)
-    res.redirect('/productos')
+    try {
+        const info = await transporter.sendMail(mailOptions)
+        console.log(info)
+     } catch (error) {
+        console.log(error)
+     }
     
+    // Mensaje al Usuario
+    
+    const client = twilio(process.env.ACCOUNTSID, process.env.AUTHTOKEN)
+    
+    try {
+        const message = await client.messages.create({
+            body: 'Su pedido ha sido recibido y se encuentra en proceso',
+            from: process.env.FROMMESSAGE,
+            to: process.env.TOMESSAGE
+        })
+        console.log(message)
+    } catch (error) {
+        console.log(error)
+     }
+    res.redirect('/productos')
     
 })
 

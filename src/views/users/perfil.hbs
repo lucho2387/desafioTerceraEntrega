@@ -1,0 +1,19 @@
+{{#if user}}
+    <div class="container d-flex justify-content-center mt-5 border p-5">
+        {{!-- <span>Id del Producto</span>
+        <p>{{_id}}</p> --}}
+        <div class="d-flex justify-content-evenly">
+            <img src="{{avatar}}" class="w-30" alt="">
+            <div class="container w-100 text-center">
+                <h2><span>Datos Personales</span></h2>
+                <div class="text-center p-2">
+                    <p><strong class="fw-bold fs-5">Nombre: {{nombre}}</strong></p>
+                    <p><strong class="fw-bold fs-5">Correo: {{email}}</strong></p>
+                    <p><strong class="fw-bold fs-5">Direccion: {{direccion}}</strong></p>
+                    <p><strong class="fw-bold fs-5">Telefono: {{telefono}}</strong></p>
+                    <p><strong class="fw-bold fs-5">Edad: {{edad}}</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}} 

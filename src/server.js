@@ -200,9 +200,20 @@ if(modoCluster || !modoCluster){
             console.log(message)
         } catch (error) {
             console.log(error)
-         }
+        }
+        
+        // Mensaje de Whatsapp
+        try {
+            const messageWhatsapp = await client.messages.create({
+                from: process.env.FROMMESSAGEWHATSAPP,
+                body: mensaje,
+                to: process.env.TOMESSAGEWHATSAPP
+            })
+            console.log(messageWhatsapp.sid)
+        } catch (error) {
+            console.log(error)
+        }
         res.redirect('/productos')
-
     })
 
     app.get("/perfil", async (req, res) => {
